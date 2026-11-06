@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "none",
+    "lib": ["ES2019", "DOM"],
+    "strict": true,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "rootDir": "src",
+    "outDir": "."
+  },
+  "files": ["src/financas.ts", "src/script.ts"]
+}

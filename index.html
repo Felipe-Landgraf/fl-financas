@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0a10" />
+    <meta
+      name="description"
+      content="Organize suas receitas, despesas e orçamento mensal com o FL Finanças."
+    />
+    <title>FL Finanças — Controle pessoal</title>
+    <link rel="icon" type="image/svg+xml" href="icone.svg" />
+    <link rel="stylesheet" href="estilo.css" />
+    <script src="financas.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+    <svg class="icones" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <symbol id="i-painel" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2" />
+        <rect x="14" y="3" width="7" height="7" rx="2" />
+        <rect x="3" y="14" width="7" height="7" rx="2" />
+        <rect x="14" y="14" width="7" height="7" rx="2" />
+      </symbol>
+      <symbol id="i-lista" viewBox="0 0 24 24">
+        <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+      </symbol>
+      <symbol id="i-grafico" viewBox="0 0 24 24">
+        <path d="M4 3v18h17M9 16v-5M14 16V6M19 16v-8" />
+      </symbol>
+      <symbol id="i-seta" viewBox="0 0 24 24">
+        <path d="M7 17 17 7M7 7h10v10" />
+      </symbol>
+      <symbol id="i-mais" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+      <symbol id="i-baixar" viewBox="0 0 24 24">
+        <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" />
+      </symbol>
+      <symbol id="i-subir" viewBox="0 0 24 24">
+        <path d="M12 16V4m-5 5 5-5 5 5M4 16v5h16v-5" />
+      </symbol>
+      <symbol id="i-busca" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6.5" />
+        <path d="m16 16 5 5" />
+      </symbol>
+      <symbol id="i-editar" viewBox="0 0 24 24">
+        <path d="m15 5 4 4M4 20l5-1L20 8a2.8 2.8 0 0 0-4-4L5 15z" />
+      </symbol>
+      <symbol id="i-lixeira" viewBox="0 0 24 24">
+        <path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7" />
+      </symbol>
+      <symbol id="i-calendario" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="16" rx="3" />
+        <path d="M7 3v4M17 3v4M3 11h18" />
+      </symbol>
+      <symbol id="i-escudo" viewBox="0 0 24 24">
+        <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6zM8 12l3 3 5-6" />
+      </symbol>
+      <symbol id="i-carteira" viewBox="0 0 24 24">
+        <path
+          d="M20 8V5a2 2 0 0 0-2-2H5a3 3 0 0 0 0 6h16v12H5a3 3 0 0 1-3-3V6M17 13h4v4h-4z"
+        />
+      </symbol>
+    </svg>
+
+    <div class="aplicativo">
+      <aside class="lateral" aria-label="Navegação e informações">
+        <a class="marca" href="#conteudo" aria-label="FL Finanças, início"
+          ><span class="marca-simbolo" aria-hidden="true">fl<span></span></span
+          ><span
+            >FL<span class="marca-ponto">.</span
+            ><small>FINANÇAS PESSOAIS</small></span
+          ></a
+        >
+        <p class="rotulo-lateral">SEU ESPAÇO</p>
+        <nav class="menu" aria-label="Navegação principal">
+          <a href="#conteudo" class="ativo" aria-current="location"
+            ><svg><use href="#i-painel" /></svg>Visão geral</a
+          >
+          <a href="#lancamentos"
+            ><svg><use href="#i-lista" /></svg>Lançamentos</a
+          >
+          <a href="#relatorios"
+            ><svg><use href="#i-grafico" /></svg>Relatórios</a
+          >
+        </nav>
+        <div class="cartao-lateral">
+          <span class="detalhe-decorativo" aria-hidden="true">✳</span>
+          <h2>Um passo de cada vez.</h2>
+          <p>Mais clareza para acompanhar suas escolhas do dia a dia.</p>
+        </div>
+        <div class="privacidade">
+          <svg><use href="#i-escudo" /></svg>
+          <p>Seus dados ficam<br /><strong>neste navegador.</strong></p>
+        </div>
+        <p class="versao">FL Finanças · Projeto de portfólio</p>
+      </aside>
+
+      <main id="conteudo" class="principal">
+        <header class="cabecalho">
+          <div>
+            <p class="sobretitulo">MENOS COMPLICAÇÃO, MAIS CLAREZA</p>
+            <h1>Seu dinheiro, por inteiro<span>.</span></h1>
+            <p class="subtitulo">
+              Um lugar simples para organizar o que entra e o que sai.
+            </p>
+          </div>
+          <button type="button" class="botao primario" id="novo-lancamento">
+            <svg><use href="#i-mais" /></svg>Novo lançamento
+          </button>
+        </header>
+
+        <noscript
+          ><p class="aviso">
+            Ative o JavaScript no navegador para usar os lançamentos e os
+            relatórios.
+          </p></noscript
+        >
+        <p id="aviso-armazenamento" class="aviso" hidden></p>
+        <div class="banner-demo" id="banner-demo" hidden>
+          <span
+            ><strong>Modo demonstração</strong> · Os valores são fictícios e as
+            alterações não são salvas.</span
+          ><button class="botao pequeno" type="button" id="sair-demo">
+            Voltar aos meus dados
+          </button>
+        </div>
+        <div class="barra-periodo">
+          <div class="seletor-mes">
+            <button
+              type="button"
+              class="botao-icone"
+              id="mes-anterior"
+              aria-label="Mês anterior"
+            >
+              ‹</button
+            ><label for="mes" class="somente-leitura">Mês de referência</label
+            ><svg><use href="#i-calendario" /></svg
+            ><input type="month" id="mes" min="2000-01" max="2099-12" /><button
+              type="button"
+              class="botao-icone"
+              id="mes-seguinte"
+              aria-label="Mês seguinte"
+            >
+              ›
+            </button>
+          </div>
+          <button class="link-botao" type="button" id="abrir-demo">
+            <span aria-hidden="true">↗</span> Explorar demonstração
+          </button>
+        </div>
+
+        <section class="resumos" aria-label="Resumo do mês">
+          <article class="resumo saldo">
+            <div class="resumo-topo">
+              <span>Saldo do mês</span><svg><use href="#i-carteira" /></svg>
+            </div>
+            <strong id="total-saldo">R$ 0,00</strong>
+            <p>Receitas menos despesas</p>
+            <span class="circulo-saldo" aria-hidden="true"></span>
+          </article>
+          <article class="resumo">
+            <div class="resumo-topo">
+              <span>Receitas</span
+              ><span class="icone-circulo entrada"
+                ><svg><use href="#i-seta" /></svg
+              ></span>
+            </div>
+            <strong id="total-receitas">R$ 0,00</strong>
+            <p id="comparacao-receitas">Nenhuma receita neste mês</p>
+          </article>
+          <article class="resumo">
+            <div class="resumo-topo">
+              <span>Despesas</span
+              ><span class="icone-circulo saida"
+                ><svg><use href="#i-seta" /></svg
+              ></span>
+            </div>
+            <strong id="total-despesas">R$ 0,00</strong>
+            <p id="comparacao-despesas">Nenhuma despesa neste mês</p>
+          </article>
+        </section>
+
+        <div class="grade-conteudo">
+          <div class="coluna-principal">
+            <section
+              class="painel painel-lancamentos"
+              id="lancamentos"
+              aria-labelledby="titulo-lancamentos"
+            >
+              <div class="titulo-painel">
+                <div>
+                  <p class="sobretitulo">CADA MOVIMENTO CONTA</p>
+                  <h2 id="titulo-lancamentos">Lançamentos</h2>
+                </div>
+                <span class="contador" id="contador-lancamentos"
+                  >0 registros</span
+                >
+              </div>
+              <div class="filtros">
+                <label class="busca"
+                  ><svg><use href="#i-busca" /></svg
+                  ><span class="somente-leitura">Buscar pela descrição</span
+                  ><input
+                    id="busca"
+                    type="search"
+                    placeholder="Buscar lançamento"
+                    maxlength="80"
+                /></label>
+                <label
+                  ><span class="somente-leitura">Filtrar por tipo</span
+                  ><select id="filtro-tipo">
+                    <option value="todos">Todos os tipos</option>
+                    <option value="receita">Receitas</option>
+                    <option value="despesa">Despesas</option>
+                  </select></label
+                >
+                <label
+                  ><span class="somente-leitura">Filtrar por categoria</span
+                  ><select id="filtro-categoria">
+                    <option value="todas">Todas as categorias</option>
+                  </select></label
+                >
+              </div>
+              <div id="estado-vazio" class="estado-vazio">
+                <span class="icone-vazio"
+                  ><svg><use href="#i-carteira" /></svg
+                ></span>
+                <h3>Uma página em branco. Um bom começo.</h3>
+                <p>
+                  Adicione sua primeira receita ou despesa e comece a enxergar
+                  seu mês com mais clareza.
+                </p>
+                <button
+                  type="button"
+                  class="botao secundario"
+                  id="adicionar-primeiro"
+                >
+                  Adicionar lançamento
+                </button>
+              </div>
+              <div id="sem-resultados" class="sem-resultados" hidden>
+                <h3>Nenhum resultado por aqui.</h3>
+                <p>Tente outra descrição ou ajuste os filtros.</p>
+                <button type="button" class="link-botao" id="limpar-filtros">
+                  Limpar filtros
+                </button>
+              </div>
+              <div class="tabela-container" id="tabela-container" hidden>
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Lançamento</th>
+                      <th scope="col">Categoria</th>
+                      <th scope="col" class="alinhar-direita">Valor</th>
+                      <th scope="col">
+                        <span class="somente-leitura">Ações</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="lista-lancamentos"></tbody>
+                </table>
+              </div>
+              <div class="rodape-tabela" id="paginacao" hidden>
+                <span id="texto-paginacao"></span>
+                <div>
+                  <button
+                    type="button"
+                    class="botao-icone"
+                    id="pagina-anterior"
+                    aria-label="Página anterior"
+                  >
+                    ‹</button
+                  ><span id="numero-pagina"></span
+                  ><button
+                    type="button"
+                    class="botao-icone"
+                    id="pagina-seguinte"
+                    aria-label="Próxima página"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section
+              class="painel painel-comparacao"
+              id="relatorios"
+              aria-labelledby="titulo-relatorios"
+            >
+              <div class="titulo-painel">
+                <div>
+                  <p class="sobretitulo">OLHANDO O TODO</p>
+                  <h2 id="titulo-relatorios">Seu ritmo nos últimos meses</h2>
+                </div>
+                <div class="legenda">
+                  <span><i class="cor-receita"></i>Receitas</span
+                  ><span><i class="cor-despesa"></i>Despesas</span>
+                </div>
+              </div>
+              <div class="grafico-meses" id="grafico-meses"></div>
+              <p class="nota-grafico" id="nota-comparacao">
+                Seis meses, incluindo o período selecionado.
+              </p>
+            </section>
+          </div>
+
+          <div class="coluna-resumos">
+            <section class="painel" aria-labelledby="titulo-categorias">
+              <div class="titulo-painel">
+                <div>
+                  <p class="sobretitulo">DESPESAS DO MÊS</p>
+                  <h2 id="titulo-categorias">Para onde foi</h2>
+                </div>
+                <span class="ponto-rosa" aria-hidden="true"></span>
+              </div>
+              <div id="grafico-categorias" class="categorias"></div>
+              <p class="nota-grafico">
+                Os relatórios consideram todo o mês, independentemente dos
+                filtros da lista.
+              </p>
+            </section>
+            <section
+              class="painel orcamento"
+              aria-labelledby="titulo-orcamento"
+            >
+              <div class="titulo-painel">
+                <div>
+                  <p class="sobretitulo">UM LIMITE, MAIS FOCO</p>
+                  <h2 id="titulo-orcamento">Orçamento mensal</h2>
+                </div>
+                <button
+                  class="botao-icone"
+                  type="button"
+                  id="editar-orcamento"
+                  aria-label="Definir orçamento mensal"
+                >
+                  <svg><use href="#i-editar" /></svg>
+                </button>
+              </div>
+              <p class="valor-orcamento" id="valor-orcamento">
+                Defina seu limite
+              </p>
+              <div
+                class="progresso"
+                id="progresso-orcamento"
+                role="progressbar"
+                aria-label="Orçamento utilizado"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+              >
+                <span id="barra-orcamento"></span>
+              </div>
+              <div class="detalhe-orcamento">
+                <span id="porcentagem-orcamento">Sem orçamento definido</span
+                ><span id="limite-orcamento"></span>
+              </div>
+              <p id="mensagem-orcamento">
+                Escolha quanto pretende gastar neste mês.
+              </p>
+              <button class="link-botao" type="button" id="definir-orcamento">
+                Definir orçamento <span aria-hidden="true">↗</span>
+              </button>
+            </section>
+            <section class="cartao-arquivos" aria-labelledby="titulo-arquivos">
+              <span class="icone-arquivos"
+                ><svg><use href="#i-baixar" /></svg
+              ></span>
+              <h2 id="titulo-arquivos">Seus dados, com você.</h2>
+              <p>
+                Leve todos os seus lançamentos em CSV ou importe uma planilha no
+                formato do FL Finanças.
+              </p>
+              <div class="acoes-arquivos">
+                <button
+                  type="button"
+                  class="botao secundario pequeno"
+                  id="exportar"
+                >
+                  <svg><use href="#i-baixar" /></svg>Exportar</button
+                ><button
+                  type="button"
+                  class="botao secundario pequeno"
+                  id="importar"
+                >
+                  <svg><use href="#i-subir" /></svg>Importar
+                </button>
+              </div>
+              <input
+                type="file"
+                id="arquivo-csv"
+                accept=".csv,text/csv"
+                hidden
+              /><a href="exemplo.csv" download class="link-modelo"
+                >Baixar modelo de CSV</a
+              >
+            </section>
+          </div>
+        </div>
+        <footer class="rodape">
+          <span class="marca-rodape">FL finanças.</span>
+          <p>Feito para simplificar o seu dia a dia.</p>
+          <span>HTML · CSS · TypeScript</span>
+        </footer>
+      </main>
+    </div>
+
+    <dialog id="janela-lancamento" aria-labelledby="titulo-formulario">
+      <div class="topo-janela">
+        <div>
+          <p class="sobretitulo" id="rotulo-formulario">UM NOVO MOVIMENTO</p>
+          <h2 id="titulo-formulario">Novo lançamento</h2>
+        </div>
+        <button
+          type="button"
+          class="botao-icone fechar-janela"
+          aria-label="Fechar formulário"
+        >
+          ×
+        </button>
+      </div>
+      <form id="formulario-lancamento">
+        <fieldset class="escolha-tipo">
+          <legend class="somente-leitura">Tipo de lançamento</legend>
+          <label
+            ><input type="radio" name="tipo" value="despesa" checked /><span
+              >↘ Despesa</span
+            ></label
+          ><label
+            ><input type="radio" name="tipo" value="receita" /><span
+              >↗ Receita</span
+            ></label
+          >
+        </fieldset>
+        <label class="campo"
+          >Descrição<input
+            id="descricao"
+            name="descricao"
+            type="text"
+            required
+            minlength="2"
+            maxlength="80"
+            placeholder="Ex.: Compras do mercado"
+            autocomplete="off"
+        /></label>
+        <div class="dois-campos">
+          <label class="campo"
+            >Valor (R$)<input
+              id="valor"
+              name="valor"
+              type="text"
+              inputmode="decimal"
+              maxlength="20"
+              placeholder="0,00"
+              required
+              autocomplete="off"
+            /><small>Ex.: 125,90</small></label
+          ><label class="campo"
+            >Data<input
+              id="data"
+              name="data"
+              type="date"
+              min="2000-01-01"
+              max="2099-12-31"
+              required
+          /></label>
+        </div>
+        <label class="campo"
+          >Categoria<select id="categoria" name="categoria" required></select
+        ></label>
+        <div class="acoes-janela">
+          <button type="button" class="botao secundario fechar-janela">
+            Cancelar</button
+          ><button type="submit" class="botao primario" id="salvar-lancamento">
+            Salvar lançamento
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="janela-orcamento" aria-labelledby="titulo-limite">
+      <div class="topo-janela">
+        <div>
+          <p class="sobretitulo">PLANEJAR COM SIMPLICIDADE</p>
+          <h2 id="titulo-limite">Seu orçamento</h2>
+        </div>
+        <button
+          type="button"
+          class="botao-icone fechar-janela"
+          aria-label="Fechar orçamento"
+        >
+          ×
+        </button>
+      </div>
+      <p class="texto-janela" id="mes-orcamento"></p>
+      <form id="formulario-orcamento">
+        <label class="campo"
+          >Limite de despesas (R$)<input
+            id="valor-limite"
+            type="text"
+            inputmode="decimal"
+            maxlength="20"
+            placeholder="Ex.: 2.000,00"
+            required
+            autocomplete="off"
+        /></label>
+        <p class="ajuda-campo">
+          Este limite vale apenas para o mês selecionado.
+        </p>
+        <button
+          type="button"
+          class="link-botao texto-perigo"
+          id="remover-orcamento"
+          hidden
+        >
+          Remover orçamento deste mês
+        </button>
+        <div class="acoes-janela">
+          <button type="button" class="botao secundario fechar-janela">
+            Cancelar</button
+          ><button type="submit" class="botao primario">
+            Salvar orçamento
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="janela-excluir" aria-labelledby="titulo-excluir">
+      <div class="topo-janela">
+        <div>
+          <p class="sobretitulo">REVISAR UM MOVIMENTO</p>
+          <h2 id="titulo-excluir">Excluir lançamento?</h2>
+        </div>
+        <button
+          type="button"
+          class="botao-icone fechar-janela"
+          aria-label="Fechar confirmação"
+        >
+          ×
+        </button>
+      </div>
+      <p class="texto-janela" id="resumo-excluir"></p>
+      <p class="ajuda-campo">
+        O lançamento será removido e os totais serão atualizados.
+      </p>
+      <div class="acoes-janela">
+        <button type="button" class="botao secundario fechar-janela" autofocus>
+          Cancelar</button
+        ><button type="button" class="botao perigo" id="confirmar-exclusao">
+          Excluir lançamento
+        </button>
+      </div>
+    </dialog>
+
+    <dialog id="janela-importar" aria-labelledby="titulo-importar">
+      <div class="topo-janela">
+        <div>
+          <p class="sobretitulo">TUDO EM UM SÓ LUGAR</p>
+          <h2 id="titulo-importar">Revisar importação</h2>
+        </div>
+        <button
+          type="button"
+          class="botao-icone fechar-janela"
+          aria-label="Fechar importação"
+        >
+          ×
+        </button>
+      </div>
+      <p class="texto-janela" id="resumo-importacao"></p>
+      <div class="revisao-importacao" id="detalhes-importacao"></div>
+      <p class="ajuda-campo">
+        A importação acrescenta lançamentos. Registros idênticos são ignorados e
+        nenhum registro existente é substituído.
+      </p>
+      <div class="acoes-janela">
+        <button type="button" class="botao secundario fechar-janela">
+          Cancelar</button
+        ><button type="button" class="botao primario" id="confirmar-importacao">
+          Importar lançamentos
+        </button>
+      </div>
+    </dialog>
+
+    <div
+      class="notificacao"
+      id="notificacao"
+      role="status"
+      aria-live="polite"
+      hidden
+    ></div>
+    <template id="modelo-lancamento"
+      ><tr>
+        <td>
+          <div class="identidade-lancamento">
+            <span class="icone-circulo"
+              ><svg><use href="#i-seta" /></svg
+            ></span>
+            <div>
+              <strong class="descricao-lancamento"></strong
+              ><span class="data-lancamento"></span>
+            </div>
+          </div>
+        </td>
+        <td class="celula-categoria">
+          <span class="etiqueta-categoria"></span>
+        </td>
+        <td class="valor-lancamento alinhar-direita"></td>
+        <td class="acoes-lancamento">
+          <button type="button" class="botao-icone acao-editar">
+            <svg><use href="#i-editar" /></svg></button
+          ><button type="button" class="botao-icone acao-excluir">
+            <svg><use href="#i-lixeira" /></svg>
+          </button>
+        </td></tr
+    ></template>
+  </body>
+</html>
